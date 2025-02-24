@@ -12,4 +12,4 @@
 
 ### Week 2
 - [x] Pagerank
-- [ ] Heredity
+- [x] Heredity
