@@ -19,4 +19,4 @@
 
 ### Week 4
 - [x] Shopping
-- [ ] Nim
+- [x] Nim

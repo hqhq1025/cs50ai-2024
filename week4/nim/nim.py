@@ -79,8 +79,8 @@ class NimAI():
 
         The Q-learning dictionary maps `(state, action)`
         pairs to a Q-value (a number).
-         - `state` is a tuple of remaining piles, e.g. (1, 1, 4, 4)
-         - `action` is a tuple `(i, j)` for an action
+        - `state` is a tuple of remaining piles, e.g. (1, 1, 4, 4)
+        - `action` is a tuple `(i, j)` for an action
         """
         self.q = dict()
         self.alpha = alpha
@@ -101,7 +101,11 @@ class NimAI():
         Return the Q-value for the state `state` and the action `action`.
         If no Q-value exists yet in `self.q`, return 0.
         """
-        raise NotImplementedError
+        state = tuple(state)
+        if (state,action) in self.q:   #查找动作状态是否在 q 值表中
+            return self.q[(state,action)]
+        else:
+            return 0
 
     def update_q_value(self, state, action, old_q, reward, future_rewards):
         """
@@ -118,7 +122,11 @@ class NimAI():
         `alpha` is the learning rate, and `new value estimate`
         is the sum of the current reward and estimated future rewards.
         """
-        raise NotImplementedError
+        state = tuple(state)
+        alpha = self.alpha
+        new_q = reward + future_rewards   #计算新q
+        addition = alpha * (new_q - old_q)
+        self.q[(state,action)] = old_q + addition  #更新q值
 
     def best_future_reward(self, state):
         """
@@ -130,7 +138,16 @@ class NimAI():
         Q-value in `self.q`. If there are no available actions in
         `state`, return 0.
         """
-        raise NotImplementedError
+        state = tuple(state)
+        actions = Nim.available_actions(state)  #根据状态获取所有可执行操作
+        if actions:   #如果有可执行操作
+            max_score = 0
+            for action in actions:  #遍历所有操作
+                current = self.get_q_value(state,action)  #获得当前q值
+                max_score = max(current,max_score)  #更新最大 q 值
+            return max_score
+        else:  #没有 则返回0
+            return 0
 
     def choose_action(self, state, epsilon=True):
         """
@@ -147,7 +164,22 @@ class NimAI():
         If multiple actions have the same Q-value, any of those
         options is an acceptable return value.
         """
-        raise NotImplementedError
+        actions = Nim.available_actions(state)
+        if epsilon:
+            if random.random() < self.epsilon:
+                return random.choice(list(actions))
+            
+        if actions:   #如果有可执行操作
+            max_score = 0
+            best_actions = []
+            for action in actions:  #遍历所有操作
+                current = self.get_q_value(state,action)  #获得当前q值
+                if current > max_score:     #更新最大 q 值
+                    max_score = current
+                    best_actions = [action]  #更新最佳行动
+                elif current == max_score:
+                    best_actions.append[action]  #添加最佳行动
+        return random.choice(best_actions)  #随机选取最佳行动
 
 
 def train(n):
