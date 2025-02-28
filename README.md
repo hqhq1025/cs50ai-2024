@@ -13,3 +13,10 @@
 ### Week 2
 - [x] Pagerank
 - [x] Heredity
+
+### Week 3
+- [ ] Crossword
+
+### Week 4
+- [x] Shopping
+- [ ] Nim
