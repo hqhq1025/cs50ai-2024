@@ -20,3 +20,6 @@
 ### Week 4
 - [x] Shopping
 - [x] Nim
+
+### Week 5
+-[x] Traffic
