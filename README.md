@@ -22,4 +22,7 @@
 - [x] Nim
 
 ### Week 5
--[x] Traffic
+- [x] Traffic
+
+### Week 6
+- [x] Parser
